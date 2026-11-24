@@ -198,7 +198,18 @@ class MyKosScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             TextButton.icon(
-                              onPressed: () => onEditTap?.call(kos),
+                              onPressed: () {
+                                if (onEditTap != null) {
+                                  onEditTap!(kos);
+                                } else {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) => KosFormScreen(kos: kos),
+                                    ),
+                                  );
+                                }
+                              },
                               icon: const Icon(Icons.edit, size: 18),
                               label: const Text('Ubah'),
                             ),
