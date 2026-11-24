@@ -31,6 +31,57 @@ class MyKosScreen extends StatelessWidget {
     return 'Rp ${buffer.toString().split('').reversed.join('')}';
   }
 
+  void _showDeleteConfirmationDialog(BuildContext context, KosModel kos) {
+    showDialog(
+      context: context,
+      builder: (ctx) {
+        return AlertDialog(
+          title: const Text('Konfirmasi Hapus'),
+          content: Text(
+            'Apakah Anda yakin ingin menghapus "${kos.name}" secara permanen? Data yang dihapus tidak dapat dipulihkan.',
+          ),
+          actions: [
+            TextButton(
+              key: const Key('cancel_delete_button'),
+              onPressed: () => Navigator.pop(ctx),
+              child: const Text('Batal'),
+            ),
+            ElevatedButton(
+              key: const Key('confirm_delete_button'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red,
+                foregroundColor: Colors.white,
+              ),
+              onPressed: () async {
+                Navigator.pop(ctx);
+                final success =
+                    await context.read<KosProvider>().deleteKos(kos.id);
+                if (context.mounted) {
+                  if (success) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Kos berhasil dihapus permanen!'),
+                        backgroundColor: Colors.green,
+                      ),
+                    );
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Gagal menghapus kos.'),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+                  }
+                }
+              },
+              child: const Text('Ya, Hapus'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final auth = context.watch<AuthProvider>();
@@ -214,9 +265,16 @@ class MyKosScreen extends StatelessWidget {
                               label: const Text('Ubah'),
                             ),
                             TextButton.icon(
+                              key: Key('delete_button_${kos.id}'),
                               style: TextButton.styleFrom(
                                   foregroundColor: Colors.red),
-                              onPressed: () => onDeleteTap?.call(kos),
+                              onPressed: () {
+                                if (onDeleteTap != null) {
+                                  onDeleteTap!(kos);
+                                } else {
+                                  _showDeleteConfirmationDialog(context, kos);
+                                }
+                              },
                               icon: const Icon(Icons.delete, size: 18),
                               label: const Text('Hapus'),
                             ),
