@@ -54,4 +54,4 @@ Daftar task pengembangan KosFinder berbasis *vertical slice*. Setiap task berdir
 
 | ID | Tujuan | Story & AC | File yang Boleh Diubah | Cara Menguji | Status |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **T14** | Tambah kontrol pembaruan cepat sisa kamar pada kartu `MyKosScreen` & sinkronisasi otomatis | US03-AC1, US03-AC2, US07-AC1 | `lib/screens/my_kos_screen.dart`, `lib/widgets/kos_card.dart`, `lib/screens/detail_screen.dart`, `test/quick_availability_test.dart` | `flutter test test/quick_availability_test.dart` & ubah sisa kamar jadi 0 di device | Pending |
+| **T14** | Tambah kontrol pembaruan cepat sisa kamar pada kartu `MyKosScreen` & sinkronisasi otomatis | US03-AC1, US03-AC2, US07-AC1 | `lib/screens/my_kos_screen.dart`, `lib/widgets/kos_card.dart`, `lib/screens/detail_screen.dart`, `test/quick_availability_test.dart` | `flutter test test/quick_availability_test.dart` & ubah sisa kamar jadi 0 di device | Selesai |

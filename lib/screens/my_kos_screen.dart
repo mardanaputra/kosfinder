@@ -244,6 +244,55 @@ class MyKosScreen extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                               color: Colors.indigo),
                         ),
+                        const SizedBox(height: 6),
+                        // Quick Availability Stepper Control (Slice 5 Bonus)
+                        Row(
+                          children: [
+                            const Text(
+                              'Kamar Kosong:',
+                              style: TextStyle(
+                                  fontSize: 13, fontWeight: FontWeight.w500),
+                            ),
+                            IconButton(
+                              key: Key('decrement_rooms_${kos.id}'),
+                              icon: const Icon(Icons.remove_circle_outline,
+                                  size: 20),
+                              padding: EdgeInsets.zero,
+                              constraints: const BoxConstraints(),
+                              onPressed: kos.availableRooms > 0
+                                  ? () {
+                                      final newRooms = kos.availableRooms - 1;
+                                      context.read<KosProvider>().updateKos(
+                                            kos.copyWith(
+                                                availableRooms: newRooms),
+                                          );
+                                    }
+                                  : null,
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8),
+                              child: Text(
+                                '${kos.availableRooms}',
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 15),
+                              ),
+                            ),
+                            IconButton(
+                              key: Key('increment_rooms_${kos.id}'),
+                              icon:
+                                  const Icon(Icons.add_circle_outline, size: 20),
+                              padding: EdgeInsets.zero,
+                              constraints: const BoxConstraints(),
+                              onPressed: () {
+                                final newRooms = kos.availableRooms + 1;
+                                context.read<KosProvider>().updateKos(
+                                      kos.copyWith(availableRooms: newRooms),
+                                    );
+                              },
+                            ),
+                          ],
+                        ),
                         const Divider(),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
