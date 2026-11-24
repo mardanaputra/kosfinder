@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../providers/auth_provider.dart';
 import '../providers/kos_provider.dart';
 import '../widgets/filter_bottom_sheet.dart';
 import '../widgets/kos_card.dart';
 import 'about_screen.dart';
+import 'auth_screen.dart';
 import 'detail_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -94,9 +96,27 @@ class _HomeScreenState extends State<HomeScreen> {
             },
           ),
           IconButton(
-            icon: const Icon(Icons.account_circle_outlined),
+            icon: Consumer<AuthProvider>(
+              builder: (_, auth, child) {
+                return Icon(
+                  auth.isAuthenticated
+                      ? Icons.account_circle
+                      : Icons.account_circle_outlined,
+                  color: auth.isAuthenticated ? Colors.green : null,
+                );
+              },
+            ),
             tooltip: 'Akun Pemilik',
-            onPressed: widget.onAuthTap,
+            onPressed: () {
+              if (widget.onAuthTap != null) {
+                widget.onAuthTap!();
+              } else {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const AuthScreen()),
+                );
+              }
+            },
           ),
         ],
       ),

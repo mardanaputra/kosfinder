@@ -33,7 +33,7 @@ Daftar task pengembangan KosFinder berbasis *vertical slice*. Setiap task berdir
 | ID | Tujuan | Story & AC | File yang Boleh Diubah | Cara Menguji | Status |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **T08** | Buat `AuthRepository` dan `AuthProvider` untuk registrasi, login email/password, dan logout | US04-AC1, US04-AC2 | `lib/repositories/auth_repository.dart`, `lib/providers/auth_provider.dart`, `lib/main.dart`, `test/auth_provider_test.dart` | `flutter test test/auth_provider_test.dart` | Selesai |
-| **T09** | Buat `AuthScreen` (tab Login/Register, validasi form, SnackBar error) & navigasi di `HomeScreen` | US04-AC1, US04-AC2 | `lib/screens/auth_screen.dart`, `lib/screens/home_screen.dart`, `test/auth_screen_test.dart` | `flutter test test/auth_screen_test.dart` & coba registrasi/login di device | Pending |
+| **T09** | Buat `AuthScreen` (tab Login/Register, validasi form, SnackBar error) & navigasi di `HomeScreen` | US04-AC1, US04-AC2 | `lib/screens/auth_screen.dart`, `lib/screens/home_screen.dart`, `test/auth_screen_test.dart` | `flutter test test/auth_screen_test.dart` & coba registrasi/login di device | Selesai |
 
 ---
 
