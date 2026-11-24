@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../models/kos_model.dart';
 import '../providers/auth_provider.dart';
 import '../providers/kos_provider.dart';
+import 'kos_form_screen.dart';
 
 class MyKosScreen extends StatelessWidget {
   final VoidCallback? onAddTap;
@@ -66,7 +67,16 @@ class MyKosScreen extends StatelessWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: onAddTap,
+        onPressed: () {
+          if (onAddTap != null) {
+            onAddTap!();
+          } else {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const KosFormScreen()),
+            );
+          }
+        },
         icon: const Icon(Icons.add),
         label: const Text('Tambah Kos'),
       ),
@@ -94,7 +104,17 @@ class MyKosScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 20),
                     ElevatedButton.icon(
-                      onPressed: onAddTap,
+                      onPressed: () {
+                        if (onAddTap != null) {
+                          onAddTap!();
+                        } else {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => const KosFormScreen()),
+                          );
+                        }
+                      },
                       icon: const Icon(Icons.add),
                       label: const Text('Tambah Kos Sekarang'),
                     ),

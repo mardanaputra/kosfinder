@@ -80,6 +80,51 @@ class KosProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<bool> addKos(KosModel kos) async {
+    try {
+      final newKos = await repository.createKos(kos);
+      _allKos.insert(0, newKos);
+      _applyFilters();
+      notifyListeners();
+      return true;
+    } catch (e) {
+      _errorMessage = 'Gagal menambahkan kos: $e';
+      notifyListeners();
+      return false;
+    }
+  }
+
+  Future<bool> updateKos(KosModel kos) async {
+    try {
+      final updated = await repository.updateKos(kos);
+      final index = _allKos.indexWhere((k) => k.id == updated.id);
+      if (index != -1) {
+        _allKos[index] = updated;
+      }
+      _applyFilters();
+      notifyListeners();
+      return true;
+    } catch (e) {
+      _errorMessage = 'Gagal memperbarui kos: $e';
+      notifyListeners();
+      return false;
+    }
+  }
+
+  Future<bool> deleteKos(String id) async {
+    try {
+      await repository.deleteKos(id);
+      _allKos.removeWhere((k) => k.id == id);
+      _applyFilters();
+      notifyListeners();
+      return true;
+    } catch (e) {
+      _errorMessage = 'Gagal menghapus kos: $e';
+      notifyListeners();
+      return false;
+    }
+  }
+
   void _applyFilters() {
     _filteredKos = _allKos.where((kos) {
       // Filter Area (case-insensitive substring)
