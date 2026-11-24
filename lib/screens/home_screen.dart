@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/kos_provider.dart';
 import '../widgets/kos_card.dart';
+import 'detail_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   final VoidCallback? onAboutTap;
@@ -109,7 +110,18 @@ class _HomeScreenState extends State<HomeScreen> {
                 final kos = provider.kosList[index];
                 return KosCard(
                   kos: kos,
-                  onTap: () => widget.onKosTap?.call(kos.id),
+                  onTap: () {
+                    if (widget.onKosTap != null) {
+                      widget.onKosTap!(kos.id);
+                    } else {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => DetailScreen(kos: kos),
+                        ),
+                      );
+                    }
+                  },
                 );
               },
             ),
