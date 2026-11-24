@@ -51,34 +51,38 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           Consumer<KosProvider>(
             builder: (context, provider, _) {
-              return Stack(
-                alignment: Alignment.center,
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.filter_list),
-                    tooltip: 'Filter Kos',
-                    onPressed: () {
-                      showModalBottomSheet(
-                        context: context,
-                        isScrollControlled: true,
-                        builder: (_) => const FilterBottomSheet(),
-                      );
-                    },
-                  ),
-                  if (provider.hasActiveFilter)
-                    Positioned(
-                      top: 8,
-                      right: 8,
-                      child: Container(
-                        width: 8,
-                        height: 8,
-                        decoration: const BoxDecoration(
-                          color: Colors.red,
-                          shape: BoxShape.circle,
+              return SizedBox(
+                width: 48,
+                height: 48,
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    IconButton(
+                      icon: const Icon(Icons.filter_list),
+                      tooltip: 'Filter Kos',
+                      onPressed: () {
+                        showModalBottomSheet(
+                          context: context,
+                          isScrollControlled: true,
+                          builder: (_) => const FilterBottomSheet(),
+                        );
+                      },
+                    ),
+                    if (provider.hasActiveFilter)
+                      Positioned(
+                        top: 8,
+                        right: 8,
+                        child: Container(
+                          width: 8,
+                          height: 8,
+                          decoration: const BoxDecoration(
+                            color: Colors.red,
+                            shape: BoxShape.circle,
+                          ),
                         ),
                       ),
-                    ),
-                ],
+                  ],
+                ),
               );
             },
           ),
@@ -97,13 +101,15 @@ class _HomeScreenState extends State<HomeScreen> {
             },
           ),
           IconButton(
-            icon: Consumer<AuthProvider>(
-              builder: (_, auth, child) {
+            icon: Builder(
+              builder: (context) {
+                final auth = Provider.of<AuthProvider?>(context);
+                final isAuth = auth?.isAuthenticated ?? false;
                 return Icon(
-                  auth.isAuthenticated
+                  isAuth
                       ? Icons.account_circle
                       : Icons.account_circle_outlined,
-                  color: auth.isAuthenticated ? Colors.green : null,
+                  color: isAuth ? Colors.green : null,
                 );
               },
             ),
@@ -112,8 +118,8 @@ class _HomeScreenState extends State<HomeScreen> {
               if (widget.onAuthTap != null) {
                 widget.onAuthTap!();
               } else {
-                final auth = context.read<AuthProvider>();
-                if (auth.isAuthenticated) {
+                final auth = Provider.of<AuthProvider?>(context, listen: false);
+                if (auth?.isAuthenticated == true) {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (_) => const MyKosScreen()),
