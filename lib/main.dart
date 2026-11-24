@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'providers/auth_provider.dart';
 import 'providers/kos_provider.dart';
+import 'repositories/auth_repository.dart';
 import 'repositories/kos_repository.dart';
 import 'screens/home_screen.dart';
 
@@ -21,13 +23,19 @@ Future<void> main() async {
 
 class MyApp extends StatelessWidget {
   final KosRepository? kosRepository;
+  final AuthRepository? authRepository;
 
-  const MyApp({super.key, this.kosRepository});
+  const MyApp({super.key, this.kosRepository, this.authRepository});
 
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(
+          create: (_) => AuthProvider(
+            repository: authRepository ?? AuthRepository(),
+          ),
+        ),
         ChangeNotifierProvider(
           create: (_) => KosProvider(
             repository: kosRepository ?? KosRepository(),
