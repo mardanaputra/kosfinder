@@ -60,7 +60,7 @@ class _AuthScreenState extends State<AuthScreen>
       );
       if (widget.onLoginSuccess != null) {
         widget.onLoginSuccess!();
-      } else {
+      } else if (Navigator.canPop(context)) {
         Navigator.pop(context);
       }
     } else {
@@ -92,7 +92,7 @@ class _AuthScreenState extends State<AuthScreen>
       );
       if (widget.onLoginSuccess != null) {
         widget.onLoginSuccess!();
-      } else {
+      } else if (Navigator.canPop(context)) {
         Navigator.pop(context);
       }
     } else {
