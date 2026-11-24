@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/kos_provider.dart';
+import '../widgets/filter_bottom_sheet.dart';
 import '../widgets/kos_card.dart';
 import 'about_screen.dart';
 import 'detail_screen.dart';
@@ -45,6 +46,39 @@ class _HomeScreenState extends State<HomeScreen> {
         title: const Text('KosFinder',
             style: TextStyle(fontWeight: FontWeight.bold)),
         actions: [
+          Consumer<KosProvider>(
+            builder: (context, provider, _) {
+              return Stack(
+                alignment: Alignment.center,
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.filter_list),
+                    tooltip: 'Filter Kos',
+                    onPressed: () {
+                      showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        builder: (_) => const FilterBottomSheet(),
+                      );
+                    },
+                  ),
+                  if (provider.hasActiveFilter)
+                    Positioned(
+                      top: 8,
+                      right: 8,
+                      child: Container(
+                        width: 8,
+                        height: 8,
+                        decoration: const BoxDecoration(
+                          color: Colors.red,
+                          shape: BoxShape.circle,
+                        ),
+                      ),
+                    ),
+                ],
+              );
+            },
+          ),
           IconButton(
             icon: const Icon(Icons.info_outline),
             tooltip: 'Tentang Aplikasi',
