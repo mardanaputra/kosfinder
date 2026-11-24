@@ -71,8 +71,8 @@ void main() {
     testWidgets('Tampil tab Masuk dan Daftar', (WidgetTester tester) async {
       await tester.pumpWidget(createAuthWidget(FakeAuthRepo()));
 
-      expect(find.text('Masuk'), findsOneWidget);
-      expect(find.text('Daftar'), findsOneWidget);
+      expect(find.widgetWithText(Tab, 'Masuk'), findsOneWidget);
+      expect(find.widgetWithText(Tab, 'Daftar'), findsOneWidget);
       expect(find.byKey(const Key('login_email_field')), findsOneWidget);
       expect(find.byKey(const Key('login_password_field')), findsOneWidget);
     });
@@ -87,18 +87,19 @@ void main() {
           find.byKey(const Key('login_password_field')), 'wrongpass');
 
       await tester.tap(find.byKey(const Key('login_button')));
-      await tester.pumpAndSettle();
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 500));
 
       expect(find.byType(SnackBar), findsOneWidget);
       expect(find.text('Email atau password salah'), findsOneWidget);
     });
 
-    testWidgets('US04-AC1: Registrasi berhasil menampilkan SnackBar sukses',
+    testWidgets('US04-AC1: Registrasi berhasil mengubah status menjadi login',
         (WidgetTester tester) async {
       await tester.pumpWidget(createAuthWidget(FakeAuthRepo(shouldFail: false)));
 
       // Pindah ke tab Daftar
-      await tester.tap(find.text('Daftar'));
+      await tester.tap(find.widgetWithText(Tab, 'Daftar'));
       await tester.pumpAndSettle();
 
       await tester.enterText(
@@ -109,8 +110,8 @@ void main() {
       await tester.tap(find.byKey(const Key('register_button')));
       await tester.pumpAndSettle();
 
-      expect(find.byType(SnackBar), findsOneWidget);
-      expect(find.textContaining('Pendaftaran berhasil'), findsOneWidget);
+      // State masuk ke logged in view
+      expect(find.text('Anda Sedang Masuk'), findsOneWidget);
     });
   });
 }
