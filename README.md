@@ -1,17 +1,30 @@
-# kosfinder
+# KosFinder
 
-A new Flutter project.
+Aplikasi pencarian dan pengelolaan kos berbasis mobile (Android) dengan Flutter dan backend Supabase.
 
-## Getting Started
+## Pengembang
+- **Nama**: Suniaramana Mardana Putra
+- **NIM**: 2455011006
+- **Kelas**: TRPL 5A
 
-This project is a starting point for a Flutter application.
+---
 
-A few resources to get you started if this is your first Flutter project:
+## Cara Menjalankan
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+Aplikasi membaca konfigurasi Supabase melalui `--dart-define` untuk menjaga kerahasiaan kredensial.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Jalankan perintah berikut di terminal dengan mengganti nilai URL dan Anon Key dengan kredensial proyek Supabase Anda:
+
+```bash
+flutter run \
+  --dart-define=SUPABASE_URL=https://xyzcompany.supabase.co \
+  --dart-define=SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.dummykeyforrunningapp12345
+```
+
+Atau untuk build APK release:
+
+```bash
+flutter build apk --release \
+  --dart-define=SUPABASE_URL=https://xyzcompany.supabase.co \
+  --dart-define=SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.dummykeyforrunningapp12345
+```
