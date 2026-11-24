@@ -22,7 +22,7 @@ Daftar task pengembangan KosFinder berbasis *vertical slice*. Setiap task berdir
 
 | ID | Tujuan | Story & AC | File yang Boleh Diubah | Cara Menguji | Status |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **T06** | Implementasi fitur cari berdasarkan area di `KosProvider` dan search bar `HomeScreen` | US01-AC2 | `lib/providers/kos_provider.dart`, `lib/screens/home_screen.dart`, `test/search_test.dart` | `flutter test test/search_test.dart` & ketik nama area di search bar device | Pending |
+| **T06** | Implementasi fitur cari berdasarkan area di `KosProvider` dan search bar `HomeScreen` | US01-AC2 | `lib/providers/kos_provider.dart`, `lib/screens/home_screen.dart`, `test/search_test.dart` | `flutter test test/search_test.dart` & ketik nama area di search bar device | Selesai |
 | **T07** | Buat modal `FilterBottomSheet` (harga bulanan, tipe gender, 6 checklist fasilitas, tombol reset) | US02-AC1, US02-AC2 | `lib/widgets/filter_bottom_sheet.dart`, `lib/providers/kos_provider.dart`, `lib/screens/home_screen.dart`, `test/filter_test.dart` | `flutter test test/filter_test.dart` & terapkan filter di device | Pending |
 
 ---
