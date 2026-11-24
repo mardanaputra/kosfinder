@@ -110,7 +110,9 @@ class _KosFormScreenState extends State<KosFormScreen> {
             backgroundColor: Colors.green,
           ),
         );
-        Navigator.pop(context);
+        if (Navigator.canPop(context)) {
+          Navigator.pop(context);
+        }
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -143,7 +145,9 @@ class _KosFormScreenState extends State<KosFormScreen> {
             backgroundColor: Colors.green,
           ),
         );
-        Navigator.pop(context);
+        if (Navigator.canPop(context)) {
+          Navigator.pop(context);
+        }
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
