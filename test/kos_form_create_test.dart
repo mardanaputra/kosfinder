@@ -55,22 +55,27 @@ void main() {
         (WidgetTester tester) async {
       final repo = FakeKosRepo();
       await tester.pumpWidget(createWidget(repo: repo));
+      await tester.pumpAndSettle();
 
-      // Tekan tombol simpan saat form masih kosong
-      await tester.tap(find.byKey(const Key('save_button')));
+      final saveButton = find.byKey(const Key('save_button'));
+      await tester.ensureVisible(saveButton);
+      await tester.pumpAndSettle();
+      await tester.tap(saveButton);
       await tester.pumpAndSettle();
 
       expect(find.text('Nama kos wajib diisi'), findsOneWidget);
       expect(find.text('Area kos wajib diisi'), findsOneWidget);
       expect(find.text('Harga sewa wajib diisi'), findsOneWidget);
 
-      // Isi harga dengan 0 atau negatif
+      // Isi harga dengan 0
       await tester.enterText(find.byKey(const Key('name_field')), 'Kos Baru');
       await tester.enterText(find.byKey(const Key('area_field')), 'Singaraja');
       await tester.enterText(find.byKey(const Key('price_field')), '0');
       await tester.enterText(find.byKey(const Key('contact_field')), '081234');
 
-      await tester.tap(find.byKey(const Key('save_button')));
+      await tester.ensureVisible(saveButton);
+      await tester.pumpAndSettle();
+      await tester.tap(saveButton);
       await tester.pumpAndSettle();
 
       expect(find.text('Harga harus berupa angka lebih besar dari 0'),
@@ -82,6 +87,7 @@ void main() {
         (WidgetTester tester) async {
       final repo = FakeKosRepo();
       await tester.pumpWidget(createWidget(repo: repo));
+      await tester.pumpAndSettle();
 
       await tester.enterText(
           find.byKey(const Key('name_field')), 'Kos Mawar Indah');
@@ -92,7 +98,10 @@ void main() {
       await tester.enterText(
           find.byKey(const Key('contact_field')), '081234567890');
 
-      await tester.tap(find.byKey(const Key('save_button')));
+      final saveButton = find.byKey(const Key('save_button'));
+      await tester.ensureVisible(saveButton);
+      await tester.pumpAndSettle();
+      await tester.tap(saveButton);
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 500));
 
