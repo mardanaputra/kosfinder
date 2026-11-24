@@ -7,6 +7,7 @@ import '../widgets/kos_card.dart';
 import 'about_screen.dart';
 import 'auth_screen.dart';
 import 'detail_screen.dart';
+import 'my_kos_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   final VoidCallback? onAboutTap;
@@ -111,10 +112,18 @@ class _HomeScreenState extends State<HomeScreen> {
               if (widget.onAuthTap != null) {
                 widget.onAuthTap!();
               } else {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const AuthScreen()),
-                );
+                final auth = context.read<AuthProvider>();
+                if (auth.isAuthenticated) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const MyKosScreen()),
+                  );
+                } else {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const AuthScreen()),
+                  );
+                }
               }
             },
           ),
